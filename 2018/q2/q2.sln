@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Q2.Logic", "Q2.Logic\Q2.Logic.csproj", "{68E43330-2DA5-4F61-8EE7-CC8B66AA372B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Q2.Console", "Q2.Console\Q2.Console.csproj", "{9386D299-13AE-4756-A003-60859084C92A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Q2.Tests", "Q2.Tests\Q2.Tests.csproj", "{B7F82C80-FD86-44A5-B790-B89B18F85E4F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{68E43330-2DA5-4F61-8EE7-CC8B66AA372B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68E43330-2DA5-4F61-8EE7-CC8B66AA372B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68E43330-2DA5-4F61-8EE7-CC8B66AA372B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68E43330-2DA5-4F61-8EE7-CC8B66AA372B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9386D299-13AE-4756-A003-60859084C92A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9386D299-13AE-4756-A003-60859084C92A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9386D299-13AE-4756-A003-60859084C92A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9386D299-13AE-4756-A003-60859084C92A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B7F82C80-FD86-44A5-B790-B89B18F85E4F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B7F82C80-FD86-44A5-B790-B89B18F85E4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B7F82C80-FD86-44A5-B790-B89B18F85E4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B7F82C80-FD86-44A5-B790-B89B18F85E4F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

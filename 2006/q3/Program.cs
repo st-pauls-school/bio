@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace q3
 {
-    class Program
+    public class Program
     {
         static int Factorial(int i)
         {
@@ -27,7 +27,7 @@ namespace q3
             Console.WriteLine("{0}", Calculator( 73, 6) == 1402584);
             Console.WriteLine("{0}", Calculator( 95, 8) == 515725220);
         }
-        static int Calculator(int target, int cDrats) 
+        public static int Calculator(int target, int cDrats) 
         {
             IList<IList<int>> candidates = new List<IList<int>>();
             int lengthCounter = 1;

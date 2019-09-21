@@ -5,7 +5,7 @@ def primes(ubound):
     while candidate < ubound**0.5:
         candidate = candidates[0]        
         rv.append(candidate)
-        candidates = [c for c in candidates[1:] if c % candidate != 0]
+        candidates = list(filter(lambda x: x % candidate != 0, candidates)) 
     return rv + candidates
 
 def paired_primes(value, primeList):

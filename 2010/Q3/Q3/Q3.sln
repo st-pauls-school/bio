@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29230.47
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Q3.Library", "Q3.Library\Q3.Library.csproj", "{A61B9CCF-AD64-4851-B628-2402EBAE7AB6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Q3.Tests", "Q3.Tests\Q3.Tests.csproj", "{BF9403F5-B8AE-4B54-BD75-F8810AE08038}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A61B9CCF-AD64-4851-B628-2402EBAE7AB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A61B9CCF-AD64-4851-B628-2402EBAE7AB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A61B9CCF-AD64-4851-B628-2402EBAE7AB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A61B9CCF-AD64-4851-B628-2402EBAE7AB6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF9403F5-B8AE-4B54-BD75-F8810AE08038}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF9403F5-B8AE-4B54-BD75-F8810AE08038}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF9403F5-B8AE-4B54-BD75-F8810AE08038}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF9403F5-B8AE-4B54-BD75-F8810AE08038}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B94289DB-36E1-493A-A81E-70E8DE907DC6}
+	EndGlobalSection
+EndGlobal

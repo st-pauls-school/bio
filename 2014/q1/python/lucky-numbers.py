@@ -9,7 +9,7 @@ def test(did_pass):
         msg = "Test at line {0} failed.".format(linenum)
     print(msg)
 
-def lucky_numbers(i):
+def lucky_numbers(i, lt=None):
 	lucky_index = 0 
 	#generate all the odd numbers
 	numbers = [x for x in range(1, 2*(i+1), 2)]
@@ -17,6 +17,12 @@ def lucky_numbers(i):
 	while numbers[lucky_index] < i:
 		# point to the next
 		lucky_index += 1
+
+		# for part b
+		if lt != None and numbers[lucky_index] >= lt:
+			return lucky_index
+
+
 		# what is the interval for destruction  
 		doomed_interval = numbers[lucky_index]
 		# start at the index (0-indexed of course)
@@ -29,8 +35,10 @@ def lucky_numbers(i):
 
 	return max([x for x in numbers if x < i]), min([x for x in numbers if x > i])
 
-
+# the given value
 test(lucky_numbers(5) == (3,7))	
+
+# from the mark scheme 
 test(lucky_numbers(33) == (31,37))	
 test(lucky_numbers(34) == (33,37))	
 test(lucky_numbers(399) == (393,409))	
@@ -40,3 +48,5 @@ test(lucky_numbers(3304) == (3301,3307))
 test(lucky_numbers(9703) == (9691,9727))	
 test(lucky_numbers(10000) == (9999,10003))	
 
+# for part b 
+test(lucky_numbers(100, 100) == 23)

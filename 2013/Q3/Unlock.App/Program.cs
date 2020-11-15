@@ -10,13 +10,31 @@ namespace Unlock.App
         static void Main(string[] args)
         {
             Debug.Assert(Calculate("mnoqRTwxy") == "RST");
+            
+            // it struggles with the two impossible situations  
+            Debug.Assert(Calculate("N") == "IMPOSSIBLE");
+            Debug.Assert(Calculate("abcdef") == "IMPOSSIBLE");
+
             Debug.Assert(Calculate("ABF") == "a");
-            Debug.Assert(Calculate("gklmq") == "L");
-            Debug.Assert(Calculate("ghkLNQSTwXy") == "LMRSY");
-            Debug.Assert(Calculate("ghkLmNrTWXy") == "LMrSY");
+
+            // there are many solutions, these assertions contain the first and the shortest 
+            Debug.Assert(new List<string> {"L", "ceGHiJklnOqrStuVWxy"}.Contains(Calculate("gklmq")));
+            Debug.Assert(new List<string> {"ABcdEFgHIklMnOpQUWY", "LMRSY"}.Contains(Calculate("ghkLNQSTwXy")));
+            Debug.Assert(new List<string> {"ABcdEFgHIklMnOpQRUWY", "LMrSY"}.Contains(Calculate("ghkLmNrTWXy")));
+
+            // struggles from here too 
+            Debug.Assert(new List<string> {"AbcdEFgIkLMOpRtuvwX","ACDgHIjMN"}.Contains(Calculate("abrs")));
+            Debug.Assert(new List<string> {"abCdefGHiKnoQtUvwxy","DhLNpqrstuvxy"}.Contains(Calculate("deHi")));
+
+
+            Debug.Assert(CalculateWithLists("mnoqRTwxy") == "RST");
+            Debug.Assert(CalculateWithLists("ABF") == "a");
+            Debug.Assert(CalculateWithLists("gklmq") == "L");
+            Debug.Assert(CalculateWithLists("ghkLNQSTwXy") == "LMRSY");
+            Debug.Assert(CalculateWithLists("ghkLmNrTWXy") == "LMrSY");
             // It's a bit slow from here ... 
-            Debug.Assert(Calculate("abrs") == "ACDgHIjMN");
-            Debug.Assert(Calculate("deHi") == "DhLNpqrstuvxy");
+            Debug.Assert(CalculateWithLists("abrs") == "ACDgHIjMN");
+            Debug.Assert(CalculateWithLists("deHi") == "DhLNpqrstuvxy");
         }
 
         static void Setup(IList<int> state, string initial)
@@ -29,11 +47,148 @@ namespace Unlock.App
                 } else {
                     state[c-'A'] = (state[c-'A'] + 2)%3; 
                 }
-            }
-            
+            }            
         }
 
         static string Calculate(string initial)
+        {
+            ulong state = Setup(initial);
+            /* using a 64 bit integer with the 2 LSBs representing box A,
+             * each subsequent pair representing the next box. 
+             * 00 off
+             * 01 dim 
+             * 10 bright 
+             * 11 unused
+             */
+            // use a stack for a depth first, existence based traversal 
+            Stack<Tuple<string, ulong>> stack = new Stack<Tuple<string, ulong>>();
+            stack.Push(new Tuple<string, ulong>(string.Empty, state));
+            string result = Traverse(stack); 
+            return String.IsNullOrEmpty(result) ? "IMPOSSIBLE" : result;
+
+
+        }
+
+        static ulong Setup(string initial)
+        {
+            ulong value = 0;
+            foreach(char c in initial)
+            {
+                int offset = 0;
+                ulong pattern = 0;
+                // lower case is ASCII higher than upper case, so if at least 'a'
+                // it's lower, otherwise upper 
+                if(c >= 'a')
+                {
+                    offset = c - 'a';
+                    pattern = 0b01;
+                } else { 
+                    offset = c - 'A';
+                    pattern = 0b10;
+                }
+                ulong mask = pattern << (offset * 2);
+                value = value ^ (ulong)mask;
+                // OutputState(value);
+            }
+            return value;
+        }
+
+        static string Traverse(Stack<Tuple<string, ulong>> stack)
+        {
+            while(stack.Count > 0)
+            {
+                Tuple<string, ulong> head = stack.Pop();
+                char next = head.Item1.Length == 0 ? 'a' : (char)(head.Item1.ToLowerInvariant()[head.Item1.Length-1]+1);
+                Console.WriteLine("{0} {1} [{2}]", head.Item1, next, stack.Count);
+                for(char c = next; c < 'z'; ++c)
+                {
+                    foreach(bool upper in new List<bool> { true, false})
+                    {
+                        char toUse = upper ? (char)(c + ('A' - 'a')) : c;
+                        ulong state = PressAButton(head.Item2, toUse);
+                        string presses = head.Item1 + toUse;
+                        if(state == 0)
+                            return presses;
+                        stack.Push(new Tuple<string, ulong>(presses, state));
+
+                    }
+                }
+            }
+            return string.Empty;
+        }
+
+        static ulong PressAButton(ulong state, char button)
+        {
+            int offset; 
+            int repetitions;
+            if(button >= 'a')
+            {
+                offset = button - 'a';
+                repetitions = 1;
+            }
+            else 
+            {
+                offset = button - 'A';
+                repetitions = 2;
+            }
+            for(int r = 0; r < repetitions; ++r)
+            {
+                state = Toggle(state, offset);
+                if(offset > 4)
+                    state = Toggle(state, offset-5);
+                if(offset < 20)
+                    state = Toggle(state, offset+5);
+                if(offset % 5 > 0)
+                    state = Toggle(state, offset-1);
+                if(offset % 5 < 4)
+                    state = Toggle(state, offset+1);           
+            }
+            return state;
+        }
+
+        static ulong Toggle(ulong state, int box)
+        {
+            // set the mask 
+            int mask = 0b11;
+            // grab the bit pattern for the current box 
+            ulong thisbox = (state >> (box * 2)) & (ulong)mask;
+            // set the current box to zero 
+            state = state ^ (thisbox << (box * 2));
+            // increment the thisbox pattern
+            thisbox = (thisbox + 1) % 3;
+            // set the current state to the new pattern 
+            state = state | (thisbox << box * 2);
+            return state;
+        }
+
+        static void OutputState(ulong state)
+        {
+            Console.WriteLine("=====");
+            for(int r = 0; r < 5; ++r)
+            {
+                for(int c = 0; c < 5; ++c)
+                {
+                    ulong pattern = state & 0b11;
+                    state = state >> 2;
+                    switch(pattern)
+                    {
+                        case(0):
+                            Console.Write(" ");
+                            break;
+                        case(1):
+                            Console.Write('d');
+                            break;
+                        case(2):
+                            Console.Write('B');
+                            break;
+                    }
+                }
+                Console.WriteLine();
+            }
+            Console.WriteLine("=====");
+        }
+
+        static string CalculateWithLists(string initial)
         {
             IList<int> state = Enumerable.Range(1,25).Select(i => 0).ToList();
             Setup(state, initial);

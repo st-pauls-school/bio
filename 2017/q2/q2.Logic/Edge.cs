@@ -25,7 +25,7 @@
         }
         public override string ToString()
         {
-            return string.Format("{0}-{2}", _lower, _upper);
+            return $"{_lower}-{_upper}";
         }
 
     }

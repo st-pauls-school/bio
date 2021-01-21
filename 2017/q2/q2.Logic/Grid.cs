@@ -78,7 +78,7 @@ namespace q2.Logic
                     {
                         bool successful = false;
                         foreach (Square s in _squares)
-                            if (s.Assign(player.Identifier))
+                            if (s.Assign(player))
                                 successful = true;
 //                        Console.WriteLine("ok. square? {0}", successful);
                         // return if we were able to assign any squares 

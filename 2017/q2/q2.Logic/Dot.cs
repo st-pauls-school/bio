@@ -39,7 +39,7 @@ namespace q2.Logic
 
         public override string ToString()
         {
-            return string.Format("d{0}", _identifier);
+            return $"d{_identifier}";
         }
     }
 }

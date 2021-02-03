@@ -5,7 +5,7 @@ namespace q2.Logic
     public class Square
     {
         IDictionary<Direction, Edge> _edges;
-        int? _owner = null;
+        Player _owner = null;
 
         public Square()
         {
@@ -17,10 +17,10 @@ namespace q2.Logic
             _edges.Add(d, e);
         }
 
-        public bool Assign(int player)
+        public bool Assign(Player player)
         {
             // if it already has an owner, return false 
-            if (_owner.HasValue)
+            if (_owner != null)
                 return false;
             // check all four edges
             foreach(KeyValuePair<Direction, Edge> kv in _edges)
@@ -34,12 +34,12 @@ namespace q2.Logic
             return true;
         }
 
-        public int? Owner {  get { return _owner; } }
+        public Player Owner {  get { return _owner; } }
 
         public override string ToString()
         {
-            return _owner.HasValue
-                ? _owner.Value == 1 ? "X" : "O"
+            return _owner != null
+                ? _owner.Identifier == 1 ? "X" : "O"
                 : "*";
         }
     }

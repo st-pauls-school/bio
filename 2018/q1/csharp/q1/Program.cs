@@ -20,22 +20,24 @@ namespace q1
             } else if (input.ToLowerInvariant() == "partc")
             {
                 decimal max = 0m;
-                int maxi = 0;
-                int maxr = 0;
+                IList<ValueTuple<int, int, decimal>> maxima = new List<ValueTuple<int, int, decimal>>();
                 for (int i = 0; i <= 100; i++)
                 {
                     for (int r = 0; r <= 100; r++)
                     {
                         decimal rp = new InterestRepayment(i, r).TotalRepayment;
+                        if (rp == max)
+                            maxima.Add((i, r, max));
                         if (rp > max)
                         {
                             max = rp;
-                            maxi = i;
-                            maxr = r;
+                            maxima.Clear();
+                            maxima.Add((i, r, max));
                         }
                     }
                 }
-                Console.WriteLine("{0} {1}", maxi, maxr);
+                foreach(ValueTuple<int, int, decimal> tuple in maxima)
+                    Console.WriteLine($"({tuple.Item1},{tuple.Item2}) => {tuple.Item3}");
             }
             else
             {

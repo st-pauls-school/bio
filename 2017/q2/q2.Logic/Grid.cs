@@ -78,7 +78,7 @@ namespace q2.Logic
                     {
                         bool successful = false;
                         foreach (Square s in _squares)
-                            if (s.Assign(player.Identifier))
+                            if (s.Assign(player))
                                 successful = true;
 //                        Console.WriteLine("ok. square? {0}", successful);
                         // return if we were able to assign any squares 
@@ -110,6 +110,32 @@ namespace q2.Logic
             }
             sb.Append(string.Format("{2}{0} {1}", p1, p2, Environment.NewLine));
             return sb.ToString();
+        }
+
+        public string Result
+        {
+            get
+            {
+                int p1 = 0;
+                int p2 = 0;
+                for (int i = 0; i < 25; i++)
+                {
+                    string s = _squares[i].ToString();
+                    if (s == "X") p1++;
+                    if (s == "O") p2++;
+                }
+                return $"{p1} {p2}";
+            }
+        }
+
+        public void Play(int moves)
+        {
+            bool successful = false;
+            for (int i = 0; i < moves; i++)
+            {
+                successful = Move(!successful);
+            }
+
         }
     }
 }

@@ -12,7 +12,7 @@ The round one papers have a familiar structure:
 - Each question has subsidiary parts which can be calculated on paper, possibly with aspects of the program just written 
 - Each question takes input the from the user 
 - Each question should print out just the result 
-
+visu
 You are free to use any computer language you like to solve the problems. 
 
 ### Question 1 
